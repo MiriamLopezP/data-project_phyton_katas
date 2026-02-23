@@ -145,7 +145,7 @@ def ejercicio_5(lista_numeros, nota_aprobado=5):
         tupla: media de las notas y el estado: aprobado/suspenso.
     """    
     if len(lista_numeros) == 0:
-        return "Debes prorporciona runa lista que no esté vacía"
+        raise ValueError("La lista no puede estar vacía")
     media = sum(lista_numeros) / len(lista_numeros)
     
     if media >= nota_aprobado:
@@ -182,6 +182,8 @@ def ejercicio_6(numero):
     Returns:
         int: Factorial del número
     """
+    if numero < 0:
+     raise ValueError("El numero debe ser mayor o igual que 0")
     if numero == 0:
         return 1
     return numero * ejercicio_6(numero-1)
@@ -304,11 +306,8 @@ def ejercicio_10(lista_numeros):
        if len(lista_numeros)== 0:
            raise ValueError("La lista esta vacia")
        
-       result = sum(lista_numeros)/len(lista_numeros)
-       return result
-    
-    except ValueError as error:
-        print(f"Error: {error}")
+       return sum(lista_numeros)/len(lista_numeros)
+
 
 
 #Comprobacion.
@@ -560,7 +559,7 @@ def ejercicio_19(lista_numeros):
     Returns:
         list: Lista con los números impares.
     """
-    resultado = reduce(lambda nueva_lista, num_lista: nueva_lista + [num_lista] if num_lista % 2 != 0 else nueva_lista, lista_numeros, [])
+    resultado = list(filter(lambda x: x % 2 != 0, lista_numeros))
     return resultado
 
 # Comprobacion
@@ -632,6 +631,9 @@ def ejercicio_22(lista_numeros):
     Returns:
         int or float: Producto total.
     """
+    if len(lista_numeros) == 0:
+     raise ValueError("La lista no puede estar vacía")
+
     resultado = reduce(lambda acumulador, numero: acumulador * numero, lista_numeros)
     return resultado
 
@@ -680,6 +682,9 @@ def ejercicio_24(lista_numeros):
     Returns:
         int or float: Resultado de la diferencia acumulada.
     """
+    if len(lista_numeros) == 0:
+     raise ValueError("La lista no puede estar vacía")
+
     resultado = reduce(lambda acumulador, numero: acumulador - numero, lista_numeros)
     return resultado
 
@@ -1411,18 +1416,16 @@ def ejercicio_41():
     tiene_cupon = input("¿Tiene un cupón de descuento? Responda (si/no): ").lower()
 
     if tiene_cupon == "si":
-        descuento = float(input("Introduce el valor del cupón: "))
+     descuento = float(input("Introduce el valor del cupón: "))
 
-    if descuento <= 0:
-            raise Exception("El valor del descuento debe ser mayor que cero")
-    
-    precio_final = precio_original - descuento
+     if descuento <= 0:
+        raise Exception("El valor del descuento debe ser mayor que cero")
+     precio_final = precio_original - descuento
+    else:
+      precio_final= precio_original
 
     if precio_final < 0:
         precio_final = 0
-
-    else:
-        precio_final = precio_original
 
     return precio_final
 
